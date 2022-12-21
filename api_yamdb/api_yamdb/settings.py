@@ -8,7 +8,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY', default='secret key does not exist')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
