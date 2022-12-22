@@ -12,25 +12,37 @@
 
 ## Как запустить проект:
 
-Для запуска контейнера вам требуется установленный Docker.
+Для запуска контейнера вам требуется установленный и запущенный Docker.
 
 * Клонировать репозиторий
 
 В репозитории уже сформирована инфраструктура для запуска контейнера с проектом.
 
-* Из папки INFRA_SP2/infra запустите bash команду:
+Запустите в корневой папке проекта файл Makefile.
+
 ```bash
-docker-compose up -d
+make
 ```
+
+
+<details>
+  <summary>Что делает Makefile</summary>
+  
+    * Из папки INFRA_SP2/infra запустите bash команду:
+    ```bash
+    docker-compose up -d
+    ```
+
+    * Выполните поочерёдно:
+    
+    ```bash
+    docker-compose exec web python manage.py migrate
+    docker-compose exec web python manage.py createsuperuser
+    docker-compose exec web python manage.py collectstatic --no-input
+    ```
+</details>
 
 Сборка может занять некоторое время. По окончании работы docker-compose сообщит, что контейнеры собраны и запущены. Используйте эту команду каждый раз для запуска приложения в контейнере.
-
-* Выполните поочерёдно:
-```bash
-docker-compose exec web python manage.py migrate
-docker-compose exec web python manage.py createsuperuser
-docker-compose exec web python manage.py collectstatic --no-input
-```
 
 В контейнере web выполнятся миграции, будет создан superuser (придумайте ему логин почту и пароль) и собрана статика.
 
